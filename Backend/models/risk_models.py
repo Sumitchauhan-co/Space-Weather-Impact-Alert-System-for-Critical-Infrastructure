@@ -13,9 +13,9 @@ class RiskLevel(str, Enum):
 
 class InfrastructureType(str, Enum):
     POWER_GRID = "power_grid"
-    GNSS = "gnss"
     TELECOMMUNICATIONS = "telecommunications"
-    SATELLITES = "satellites"
+    AVIATION = "aviation"
+    RAILWAYS = "railways"
 
 
 class RiskFactor(BaseModel):

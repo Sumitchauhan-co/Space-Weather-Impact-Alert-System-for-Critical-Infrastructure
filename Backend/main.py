@@ -2,13 +2,16 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+import database
 from config import settings
 
 from routers import (
     alerts,
     geospace,
     health,
+    replay,
     risk,
+    sectors,
     weather,
 )
 
@@ -39,6 +42,18 @@ app.include_router(alerts.router)
 app.include_router(geospace.router)
 
 app.include_router(health.router)
+
+app.include_router(sectors.router)
+
+app.include_router(replay.router)
+
+
+database.init_db()
+
+
+@app.on_event("startup")
+async def on_startup():
+    database.init_db()
 
 
 @app.get("/")
