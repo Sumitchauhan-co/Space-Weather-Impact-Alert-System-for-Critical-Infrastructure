@@ -1,7 +1,6 @@
 import type {
 	CurrentAlertResponse,
 	NOAAAlertsResponse,
-	RegionalRiskResponse,
 	SpaceWeatherCurrent,
 } from '../types/spaceWeather';
 
@@ -19,13 +18,16 @@ async function request<T>(endpoint: string): Promise<T> {
 	try {
 		const response = await fetch(`${API_BASE_URL}${endpoint}`, {
 			signal: controller.signal,
+			headers: {
+				Accept: 'application/json',
+			},
 		});
 
 		if (!response.ok) {
 			throw new Error(`API request failed: ${response.status}`);
 		}
 
-		return response.json();
+		return await response.json();
 	} finally {
 		window.clearTimeout(timeout);
 	}
@@ -49,12 +51,6 @@ export function getWeatherHistory(hours = 24) {
 
 export function getForecast() {
 	return request('/api/weather/forecast');
-}
-
-export function getRegionalRisk(latitude: number, longitude: number) {
-	return request<RegionalRiskResponse>(
-		`/api/risk/regional?latitude=${latitude}&longitude=${longitude}`,
-	);
 }
 
 export function getAurora() {
