@@ -1,6 +1,6 @@
 from typing import Any
 
-from models.risk_models import (
+from models.risk import (
     InfrastructureRisk,
     InfrastructureType,
     RiskFactor,
@@ -180,7 +180,20 @@ def calculate_infrastructure_risk(
             "bz": 0.15,
             "density": 0.05,
         },
-        InfrastructureType.GNSS: {
+        # Aviation: HF radio blackout risk (xray/flare class) is the
+        # dominant driver on polar routes, plus proton flux (radiation
+        # exposure) and Kp (general disturbance).
+        InfrastructureType.AVIATION: {
+            "xray": 0.30,
+            "proton": 0.25,
+            "kp": 0.20,
+            "bz": 0.10,
+            "speed": 0.10,
+            "dst": 0.05,
+        },
+        # Railways: GPS-based signaling degradation tracks ionospheric
+        # disturbance, so this reuses the old GNSS weighting.
+        InfrastructureType.RAILWAYS: {
             "kp": 0.25,
             "speed": 0.20,
             "bz": 0.15,
@@ -194,14 +207,6 @@ def calculate_infrastructure_risk(
             "bz": 0.10,
             "speed": 0.10,
             "proton": 0.10,
-            "dst": 0.15,
-        },
-        InfrastructureType.SATELLITES: {
-            "proton": 0.30,
-            "kp": 0.20,
-            "speed": 0.15,
-            "bz": 0.10,
-            "xray": 0.10,
             "dst": 0.15,
         },
     }
