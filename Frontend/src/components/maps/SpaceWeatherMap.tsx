@@ -56,6 +56,8 @@ const INFRASTRUCTURE_LABELS: Record<InfrastructureType, string> = {
 	gnss: 'GNSS',
 	telecommunications: 'Telecommunications',
 	satellites: 'Satellites',
+	aviation: 'Aviation',
+	railways: 'Railways',
 };
 
 /*
