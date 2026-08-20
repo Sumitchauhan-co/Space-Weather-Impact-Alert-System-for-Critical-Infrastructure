@@ -229,7 +229,7 @@ function Dashboard() {
 
 					<SpaceWeatherMap
 						risks={weather?.risk?.infrastructure ?? []}
-						locations={[]}
+						kp={weather?.geomagnetic?.kp ?? null}
 					/>
 				</section>
 
